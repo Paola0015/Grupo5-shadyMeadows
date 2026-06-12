@@ -59,7 +59,7 @@ https://github.com/usuario/grupo-5-qa-automation
 ```bash
 cypress/
 │── e2e/
-│   └── myTestRest.......cy.js
+│   └── myTestRestfullBooker.cy.js
 │── fixtures/
 │── support/
 ```
