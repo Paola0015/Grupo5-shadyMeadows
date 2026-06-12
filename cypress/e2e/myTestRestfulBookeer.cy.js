@@ -9,11 +9,11 @@ describe('Trabajo Final QA - Shady Meadows', () => {
     cy.visit('https://automationintesting.online/')
 
     // TODO:
-    // Verificar habitaciones disponibles
-    // Seleccionar habitación
-    // Completar formulario
+    // navegar a la pagina principal y verificar que se muestran las habitaciones disponibles 
+    // Seleccionar una habitacion y abrir el formulario de reserva 
+    // Completar formulario con datos validos ( nombre, apellido, email, telefono, fechas)
     // Confirmar reserva
-    // Validar mensaje de éxito
+    
 
   })
 
@@ -27,9 +27,10 @@ describe('Trabajo Final QA - Shady Meadows', () => {
     cy.visit('https://automationintesting.online/')
 
     // TODO:
-    // Intentar enviar vacío
-    // Validar mensajes de error
+    // verificar que aparecen los mensajes de error correspondientes
     // Verificar que no se realizó reserva
+    // sumar Vlidacion de Api, al menos una
+    // sumar Validacion de imagen que corresponda con la de una habitacion
 
   })
 
@@ -43,9 +44,9 @@ describe('Trabajo Final QA - Shady Meadows', () => {
     cy.visit('https://automationintesting.online/')
 
     // TODO:
-    // Completar formulario contacto
-    // Enviar formulario
-    // Validar confirmación
+    // Completar formulario contacto con datos validos 
+    // Enviar mensaje y validar que se muestra la informacion 
+    // sumar que se envie correctamente el mail
 
   })
 
