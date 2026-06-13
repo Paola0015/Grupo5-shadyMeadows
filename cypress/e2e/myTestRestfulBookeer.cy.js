@@ -4,29 +4,26 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 
 describe('Trabajo Final QA - Shady Meadows', () => {
 
-  // ==========================================
   // 3.1 Reserva exitosa como usuario invitado
-  // ==========================================
 
   it('Reserva exitosa como usuario invitado', () => {
 
     cy.visit('https://automationintesting.online/')
 
     // TODO:
-    // Navegar a la pagina principal y verificar habitaciones disponibles
-    // Seleccionar una habitacion
-    // Completar formulario con datos validos
+    // navegar a la pagina principal y verificar que se muestran las habitaciones disponibles
+    // Seleccionar una habitacion y abrir el formulario de reserva
+    // Completar formulario con datos validos ( nombre, apellido, email, telefono, fechas)
     // Confirmar reserva
-    // Validar mensaje de exito
 
   })
 
 
-  // ==========================================
   // 3.2 Validaciones formulario reserva
-  // ==========================================
 
   it('Validaciones del formulario de reserva', () => {
+
+    //Paola
 
     // visitar la pagina
     cy.visit('https://automationintesting.online/')
@@ -34,25 +31,23 @@ describe('Trabajo Final QA - Shady Meadows', () => {
     // buscar una habitacion y abrir reserva
     cy.contains('Book Now').first().click()
 
-    // intentar enviar sin completar ningun campo
-    cy.contains('Reserve Now').click()
+    // verificar que se abrio la seccion de reserva
+    cy.contains('Check Availability & Book Your Stay')
 
-    // mensajes de error
+    // verificar mensajes de error
     cy.contains('Firstname should not be blank')
     cy.contains('Lastname should not be blank')
     cy.contains('must not be empty')
 
-    // TODO:
-    // verificar que no se realizo reserva
-    // sumar validacion de API
-    // sumar validacion de imagen de habitacion
+    // verificar que aparecen los mensajes de error correspondientes
+    // Verificar que no se realizó reserva
+    // sumar Vlidacion de Api, al menos una
+    // sumar Validacion de imagen que corresponda con la de una habitacion
 
   })
 
 
-  // ==========================================
   // 3.3 Formulario de contacto
-  // ==========================================
 
   it('Formulario de contacto exitoso', () => {
 
@@ -60,8 +55,8 @@ describe('Trabajo Final QA - Shady Meadows', () => {
 
     // TODO:
     // Completar formulario contacto con datos validos
-    // Enviar mensaje
-    // Validar confirmacion
+    // Enviar mensaje y validar que se muestra la informacion
+    // sumar que se envie correctamente el mail
 
   })
 
