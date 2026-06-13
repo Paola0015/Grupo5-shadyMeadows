@@ -18,33 +18,44 @@ describe('Trabajo Final QA - Shady Meadows', () => {
 
   })
 
+// 3.2 Validaciones formulario reserva
 
-  // 3.2 Validaciones formulario reserva
+it('Validaciones del formulario de reserva', () => {
 
-  it('Validaciones del formulario de reserva', () => {
+  //Paola
 
-    //Paola
+  // visitar la pagina
+  cy.visit('https://automationintesting.online/')
 
-    // visitar la pagina
-    cy.visit('https://automationintesting.online/')
+  // abrir seccion de reservas
+  cy.contains('Book Now').first().click()
 
-    // buscar una habitacion y abrir reserva
-    cy.contains('Book Now').first().click()
+  // verificar que se abrio la seccion de reserva
+  cy.contains('Check Availability & Book Your Stay')
 
-    // verificar que se abrio la seccion de reserva
-    cy.contains('Check Availability & Book Your Stay')
+  // abrir formulario de una habitacion
+  cy.get('a[href*="reservation"]').first().click()
 
-    // verificar mensajes de error
-    cy.contains('Firstname should not be blank')
-    cy.contains('Lastname should not be blank')
-    cy.contains('must not be empty')
+  // verificar que se abrio el formulario
+  cy.contains('Book This Room')
 
-    // verificar que aparecen los mensajes de error correspondientes
-    // Verificar que no se realizó reserva
-    // sumar Vlidacion de Api, al menos una
-    // sumar Validacion de imagen que corresponda con la de una habitacion
+  // primer click: abre formulario
+  cy.contains('Reserve Now').click()
 
-  })
+  // segundo click: envia vacio y dispara validaciones
+  cy.contains('Reserve Now').click()
+
+  // verificar mensajes de error
+  cy.contains('Firstname should not be blank')
+  cy.contains('Lastname should not be blank')
+  cy.contains('must not be empty')
+
+  // verificar que aparecen los mensajes de error correspondientes
+  // Verificar que no se realizó reserva
+  // sumar Vlidacion de Api, al menos una
+  // sumar Validacion de imagen que corresponda con la de una habitacion
+
+})
 
 
   // 3.3 Formulario de contacto
