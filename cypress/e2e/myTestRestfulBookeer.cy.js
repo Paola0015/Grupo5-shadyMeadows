@@ -37,7 +37,7 @@ describe('Trabajo Final QA - Shady Meadows', () => {
     // intentar enviar sin completar ningun campo
     cy.contains('Reserve Now').click()
 
-    // verificar mensajes de error
+    // mensajes de error
     cy.contains('Firstname should not be blank')
     cy.contains('Lastname should not be blank')
     cy.contains('must not be empty')
