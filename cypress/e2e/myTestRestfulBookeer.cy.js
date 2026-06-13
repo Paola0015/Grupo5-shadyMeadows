@@ -24,34 +24,44 @@ it('Validaciones del formulario de reserva', () => {
 
   //Paola
 
-  // visitar la pagina
+ 
   cy.visit('https://automationintesting.online/')
 
-  // abrir seccion de reservas
+ 
   cy.contains('Book Now').first().click()
 
-  // verificar que se abrio la seccion de reserva
+  
   cy.contains('Check Availability & Book Your Stay')
 
-  // abrir formulario de una habitacion
+ 
   cy.get('a[href*="reservation"]').first().click()
 
-  // verificar que se abrio el formulario
+ 
   cy.contains('Book This Room')
 
-  // primer click: abre formulario
+  
   cy.contains('Reserve Now').click()
 
-  // segundo click: envia vacio y dispara validaciones
+  
   cy.contains('Reserve Now').click()
 
-  // verificar mensajes de error
   cy.contains('Firstname should not be blank')
   cy.contains('Lastname should not be blank')
   cy.contains('must not be empty')
 
+
   // verificar que aparecen los mensajes de error correspondientes
-  // Verificar que no se realizó reserva
+  cy.contains('Firstname should not be blank').should('be.visible')
+  cy.contains('Lastname should not be blank').should('be.visible')
+  cy.contains('must not be empty').should('be.visible')
+
+// Verificar que no se realizó reserva
+  cy.url().should('include', '/reservation/')
+  cy.contains('Book This Room').should('be.visible') 
+ ///////// FIN DE YO PAOLA /////////
+
+  // LISTO ..... verificar que aparecen los mensajes de error correspondientes
+  // LISTO ..... Verificar que no se realizó reserva
   // sumar Vlidacion de Api, al menos una
   // sumar Validacion de imagen que corresponda con la de una habitacion
 
