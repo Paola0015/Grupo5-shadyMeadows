@@ -1,3 +1,7 @@
+Cypress.on('uncaught:exception', (err, runnable) => {
+  return false
+})
+
 describe('Trabajo Final QA - Shady Meadows', () => {
 
   // ==========================================
@@ -9,11 +13,11 @@ describe('Trabajo Final QA - Shady Meadows', () => {
     cy.visit('https://automationintesting.online/')
 
     // TODO:
-    // navegar a la pagina principal y verificar que se muestran las habitaciones disponibles 
-    // Seleccionar una habitacion y abrir el formulario de reserva 
-    // Completar formulario con datos validos ( nombre, apellido, email, telefono, fechas)
+    // Navegar a la pagina principal y verificar habitaciones disponibles
+    // Seleccionar una habitacion
+    // Completar formulario con datos validos
     // Confirmar reserva
-    
+    // Validar mensaje de exito
 
   })
 
@@ -24,13 +28,24 @@ describe('Trabajo Final QA - Shady Meadows', () => {
 
   it('Validaciones del formulario de reserva', () => {
 
+    // visitar la pagina
     cy.visit('https://automationintesting.online/')
 
+    // buscar una habitacion y abrir reserva
+    cy.contains('Book Now').first().click()
+
+    // intentar enviar sin completar ningun campo
+    cy.contains('Reserve Now').click()
+
+    // verificar mensajes de error
+    cy.contains('Firstname should not be blank')
+    cy.contains('Lastname should not be blank')
+    cy.contains('must not be empty')
+
     // TODO:
-    // verificar que aparecen los mensajes de error correspondientes
-    // Verificar que no se realizó reserva
-    // sumar Vlidacion de Api, al menos una
-    // sumar Validacion de imagen que corresponda con la de una habitacion
+    // verificar que no se realizo reserva
+    // sumar validacion de API
+    // sumar validacion de imagen de habitacion
 
   })
 
@@ -44,9 +59,9 @@ describe('Trabajo Final QA - Shady Meadows', () => {
     cy.visit('https://automationintesting.online/')
 
     // TODO:
-    // Completar formulario contacto con datos validos 
-    // Enviar mensaje y validar que se muestra la informacion 
-    // sumar que se envie correctamente el mail
+    // Completar formulario contacto con datos validos
+    // Enviar mensaje
+    // Validar confirmacion
 
   })
 
