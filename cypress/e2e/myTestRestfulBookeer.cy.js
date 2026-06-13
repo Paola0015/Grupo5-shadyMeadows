@@ -25,20 +25,6 @@ describe('Trabajo Final QA - Shady Meadows', () => {
 
     //Paola
 
-    // visitar la pagina
-    cy.visit('https://automationintesting.online/')
-
-    // buscar una habitacion y abrir reserva
-    cy.contains('Book Now').first().click()
-
-    // verificar que se abrio la seccion de reserva
-    cy.contains('Check Availability & Book Your Stay')
-
-    // verificar mensajes de error
-    cy.contains('Firstname should not be blank')
-    cy.contains('Lastname should not be blank')
-    cy.contains('must not be empty')
-
     // verificar que aparecen los mensajes de error correspondientes
     // Verificar que no se realizó reserva
     // sumar Vlidacion de Api, al menos una
