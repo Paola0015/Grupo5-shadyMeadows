@@ -4,19 +4,69 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 
 describe('Trabajo Final QA - Shady Meadows', () => {
 
-  // 3.1 Reserva exitosa como usuario invitado
+  beforeEach(() => {
+    cy.visit("/");
+  });
 
-  it('Reserva exitosa como usuario invitado', () => {
+  // =========================
+  // 3.1 RESERVA EXITOSA COMO USUARIO INVITADO
+  // =========================
 
-    cy.visit('https://automationintesting.online/')
+    it('3.1.1 Verificar navegación a página principal', () => {
 
+      cy.contains("Welcome to Shady Meadows B&B")
+        .should("be.visible");
+
+      cy.get('a[href="#booking"]')
+        .should("be.visible")
+        .click();
+
+      cy.url().should("include", "#booking");
+
+      cy.get("#booking").should("be.visible");
+
+      cy.fixture("rooms").then((data) => {
+
+        data.rooms.forEach((room) => {
+          cy.contains("h5.card-title", room.type)
+            .should("be.visible");
+        });
+
+      });
+
+    });
+
+    it("3.1.2 Verificar seleccion de habitación y formulario", () => {
+
+      cy.fixture("rooms").then((data) => {
+
+        data.rooms.forEach((room) => {
+
+          cy.get(`a[href*="/reservation/${room.id}"]`)
+            .should("be.visible")
+            .click();
+
+          cy.url().should("include", `/reservation/${room.id}`);
+
+          cy.get("form").should("be.visible");
+
+          cy.go("back");
+
+        });
+
+      });
+
+      });
+
+
+
+
+ 
     // TODO:
-    // navegar a la pagina principal y verificar que se muestran las habitaciones disponibles
-    // Seleccionar una habitacion y abrir el formulario de reserva
     // Completar formulario con datos validos ( nombre, apellido, email, telefono, fechas)
     // Confirmar reserva
 
-  })
+
 
 
   // 3.2 Validaciones formulario reserva
@@ -45,5 +95,6 @@ describe('Trabajo Final QA - Shady Meadows', () => {
     // sumar que se envie correctamente el mail
 
   })
+  })
+  
 
-})
