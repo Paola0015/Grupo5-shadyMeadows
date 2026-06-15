@@ -32,6 +32,11 @@ Email: [paoandre225@gmail.com](mailto:paoandre225@gmail.com)
 
 Email: [marcos_polzoni@yahoo.com.ar](mailto:marcos_polzoni@yahoo.com.ar)
 
+
+### Florencia Viale
+Email:
+
+
 ## Herramientas utilizadas
 
 * Cypress
