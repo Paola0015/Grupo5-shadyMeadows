@@ -13,18 +13,18 @@ describe('Trabajo Final QA - Shady Meadows', () => {
   // =========================
 
     it('3.1.1 Verificar navegación a página principal', () => {
-
+      // validar que se muestra el mensaje de bienvenida
       cy.contains("Welcome to Shady Meadows B&B")
         .should("be.visible");
-
+      // validar que se muestra el botón de reserva
       cy.get('a[href="#booking"]')
         .should("be.visible")
         .click();
-
+      //validar que se navega a la sección de reserva
       cy.url().should("include", "#booking");
 
       cy.get("#booking").should("be.visible");
-
+      // validar que se muestran las tarjetas de habitaciones disponibles
       cy.fixture("rooms").then((data) => {
 
         data.rooms.forEach((room) => {
@@ -36,27 +36,25 @@ describe('Trabajo Final QA - Shady Meadows', () => {
 
     });
 
-    it("3.1.2 Verificar seleccion de habitación y formulario", () => {
+it("3.1.2 Verificar selección de habitación y formulario", () => {
 
-      cy.fixture("rooms").then((data) => {
+  cy.fixture("rooms").then((data) => {
 
-        data.rooms.forEach((room) => {
+    cy.wrap(data.rooms).each((room) => {
+      //Validar que el botón de disponibilidad de cada habitación esté habilitado
+      cy.botonDisponibilidadDeHabitacionesHabilitado(room.id)
+        .click();
+      //validar que se navega a la página de reserva correspondiente
+      cy.url().should("include", `/reservation/${room.id}`);
+      //validar que se muestra el formulario de reserva
+      cy.get("form").should("be.visible");
+      //volver a la página principal para la siguiente iteración
+      cy.go("back");
+    });
 
-          cy.get(`a[href*="/reservation/${room.id}"]`)
-            .should("be.visible")
-            .click();
+  });
 
-          cy.url().should("include", `/reservation/${room.id}`);
-
-          cy.get("form").should("be.visible");
-
-          cy.go("back");
-
-        });
-
-      });
-
-      });
+});
 
 
 

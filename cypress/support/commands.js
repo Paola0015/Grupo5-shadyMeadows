@@ -11,10 +11,12 @@
 //
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
-Cypress.Commands.add("disponibilidadDeHabitaciones", (roomId) => {
+Cypress.Commands.add("botonDisponibilidadDeHabitacionesHabilitado", (roomId) => {
   cy.get(`a.btn.btn-primary[href*="/reservation/${roomId}"]`)
     .should("be.visible")
-    .and("contain", "Book now");
+    .and("contain", "Book now")
+    .and("have.class", "btn")
+    .and("have.class", "btn-primary");
 });
 //
 //
