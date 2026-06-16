@@ -48,6 +48,16 @@ it("3.1.2 Verificar selección de habitación y formulario", () => {
       cy.url().should("include", `/reservation/${room.id}`);
       //validar que se muestra el formulario de reserva
       cy.get("form").should("be.visible");
+      //Se comentó la selección de rango de fechas en el calendario porque hay un bug al seleccionar el rango con un click en inicio y otro en fin, se selecciona el rango pero no se muestra como seleccionado, por lo que no se puede validar que se haya seleccionado correctamente pero el test principal requiere llegar al formulario de reserva, se dejó el comando personalizado para seleccionar el rango de fechas por si se soluciona el bug y se puede validar la selección del rango en el calendario.
+
+      /*
+        //elegir un rango de fechas para la reserva(hay un bug al seleccionar rango en el calendario con un click en inicio de rango y otro en fin)
+      cy.seleccionarRangoCalendario('01','16');
+      */
+      //click en botón de reservar
+      cy.hacerClickEnReservar(); 
+      //validar que se muestra el formulario de reserva con los campos visibles
+      cy.validarFormularioReservaVisible();
       //volver a la página principal para la siguiente iteración
       cy.go("back");
     });
