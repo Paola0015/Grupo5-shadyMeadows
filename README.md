@@ -34,7 +34,7 @@ Email: [marcos_polzoni@yahoo.com.ar](mailto:marcos_polzoni@yahoo.com.ar)
 
 
 ### Florencia Viale
-Email:
+Email: [abflorenciaviale@gmail.com](mailto:abflorenciaviale@gmail.com)
 
 
 ## Herramientas utilizadas
