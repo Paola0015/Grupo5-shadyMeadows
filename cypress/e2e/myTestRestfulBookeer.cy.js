@@ -4,40 +4,54 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 
 describe('Trabajo Final QA - Shady Meadows', () => {
 
-  // 3.1 Reserva exitosa como usuario invitado
-
-  it('Reserva exitosa como usuario invitado', () => {
-
-    cy.visit('https://automationintesting.online/')
-
-    // TODO:
-    // navegar a la pagina principal y verificar que se muestran las habitaciones disponibles
-    // Seleccionar una habitacion y abrir el formulario de reserva
-    // Completar formulario con datos validos ( nombre, apellido, email, telefono, fechas)
-    // Confirmar reserva
-
-  })
-
-
-  // 3.2 Validaciones formulario reserva
-
-  it('Validaciones del formulario de reserva', () => {
-
-    //Paola
-
-    // verificar que aparecen los mensajes de error correspondientes
-    // Verificar que no se realizó reserva
-    // sumar Vlidacion de Api, al menos una
-    // sumar Validacion de imagen que corresponda con la de una habitacion
-
-  })
-
+    beforeEach(() => {
+      cy.visit('https://automationintesting.online/');
+  });
 
   // 3.3 Formulario de contacto
 
-  it('Formulario de contacto exitoso', () => {
+    // 3.3.1 
+    it('Formulario de contacto exitoso', () => {
 
-    cy.visit('https://automationintesting.online/')
+      cy.visit("https://automationintesting.online/#contact");
+
+      // Validar que el formulario existe
+      cy.get("form").should("be.visible");
+
+      // Completar campos con dátos válidos
+      cy.fixture('dataContactForm').then((data) => {
+        cy.completarContactForm(data);
+
+    });
+      // Enviar formulario
+      cy.contains('Submit')
+          .should("be.visible")
+          .click();
+});
+
+    // 3.3.2
+    it('Enviar el mensaje y validar que se muestra la confirmación', () => {
+
+      cy.visit("https://automationintesting.online/#contact");
+
+      // Validar que el formulario existe
+      cy.get("form").should("be.visible");
+
+      // Completar campos con dátos válidos
+      cy.fixture('dataSuccessfullyForm').then((data) => {
+        cy.successfullyForm(data);
+
+    });
+      // Enviar formulario
+      cy.contains('Submit')
+          .should("be.visible")
+          .click();
+
+      cy.contains('Thanks for getting in touch Marcelo Gallardo!')
+          .should('be.visible');
+    
+});
+
 
     // TODO:
     // Completar formulario contacto con datos validos
@@ -46,4 +60,3 @@ describe('Trabajo Final QA - Shady Meadows', () => {
 
   })
 
-})

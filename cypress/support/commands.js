@@ -23,3 +23,20 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('completarContactForm',(data) =>{
+    // Completar formulario
+    cy.get('[data-testid="ContactName"]').type(data.name)
+    cy.get('[data-testid="ContactEmail"]').type(data.email)
+    cy.get('[data-testid="ContactPhone"]').type(data.phone)
+    cy.get('[data-testid="ContactSubject"]').type(data.subject)
+    cy.get('[data-testid="ContactDescription"]').type(data.message)
+})
+
+Cypress.Commands.add('successfullyForm',(data) =>{
+    // Completar formulario 
+    cy.get('[data-testid="ContactName"]').type(data.name)
+    cy.get('[data-testid="ContactEmail"]').type(data.email)
+    cy.get('[data-testid="ContactPhone"]').type(data.phone)
+    cy.get('[data-testid="ContactSubject"]').type(data.subject)
+    cy.get('[data-testid="ContactDescription"]').type(data.message)
+})
