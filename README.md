@@ -51,6 +51,10 @@ Email: [abflorenciaviale@gmail.com](mailto:abflorenciaviale@gmail.com)
 
 https://trello.com/invite/b/6a2b2afbae4d77c5a09f62c1/ATTI9a2ff72e5f8fa4c0d03d47c9ecec5fdf95092542/grupo-5-qa-automation
 
+### Segundo Tablero Trello
+
+https://trello.com/b/NqwJerwp/grupo-5-shady-meadows
+
 ### Casos de prueba (Drive)
 
 https://drive.google.com/drive/folders/1FPu4GRcVf7W7ED5IRavupwgM0SB1ozoo
