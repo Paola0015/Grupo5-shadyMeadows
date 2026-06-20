@@ -1,3 +1,6 @@
+// Trello: https://trello.com/b/Xk4sGKK3/tpfinal-shady-meadows-bb
+// Drive > Hoja con Set de Pruebas: https://docs.google.com/spreadsheets/d/1qXmTXK_EZU0HHcU2C6V0GoJ5YD40KFHScWTmfYJvA3o/edit?gid=16637989#gid=16637989
+
 // Maneja excepciones no capturadas en la aplicación para evitar que Cypress falle el test
 Cypress.on('uncaught:exception', (err, runnable) => {
   return false // Evita que Cypress falle el test por excepciones no atrapadas en la aplicación
