@@ -41,10 +41,10 @@ describe('Trabajo Final QA - Shady Meadows', () => {
 
 
   // Caso de prueba 3.1.5:
-    //ATENCIÓN: Este caso de prueba puede fallar si se intenta reservar las mismas fechas 
-    // varias veces. Si esto ocurre, modificar las fechas seleccionadas en el comando 
-    // `openReservationForm` (líneas 29 y 32) a otras fechas futuras para evitar 
-    // conflictos con reservas anteriores.
+  //ATENCIÓN: Este caso de prueba puede fallar si se intenta reservar las mismas fechas 
+  // varias veces. Si esto ocurre, modificar las fechas seleccionadas en el comando 
+  // `openReservationForm` (líneas 29 y 32) a otras fechas futuras para evitar 
+  // conflictos con reservas anteriores.
   it('Intentar repetir las mismas fechas de reserva y validar el mensaje de error', () => {
     // Usar datos de fixture `reservationForm` y comando reutilizable
     cy.get('@reservation').then((r) => {
@@ -95,9 +95,6 @@ describe('Trabajo Final QA - Shady Meadows', () => {
     // Fin del cuarto caso de prueba
 
   })
-
-  //it.only('', () => {
-
 
 
 
