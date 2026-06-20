@@ -31,6 +31,9 @@ Email: [paoandre225@gmail.com](mailto:paoandre225@gmail.com)
 ### Marcos Polzoni
 
 Email: [marcos_polzoni@yahoo.com.ar](mailto:marcos_polzoni@yahoo.com.ar)
+Trello: https://trello.com/b/Xk4sGKK3/tpfinal-shady-meadows-bb
+Drive > Hoja con Set de Pruebas: https://docs.google.com/spreadsheets/d/1qXmTXK_EZU0HHcU2C6V0GoJ5YD40KFHScWTmfYJvA3o/edit?gid=16637989#gid=16637989
+Rama Github: https://github.com/Paola0015/Grupo5-shadyMeadows/tree/marcos
 
 ## Herramientas utilizadas
 
