@@ -58,7 +58,6 @@ it('Validaciones del formulario de reserva', () => {
 // Verificar que no se realizó reserva
   cy.url().should('include', '/reservation/')
   cy.contains('Book This Room').should('be.visible') 
- ///////// FIN DE YO PAOLA /////////
 
   // LISTO ..... verificar que aparecen los mensajes de error correspondientes
   // LISTO ..... Verificar que no se realizó reserva
