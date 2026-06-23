@@ -23,6 +23,7 @@ it('Validaciones del formulario de reserva', () => {
  
   cy.visit('https://automationintesting.online/')
 
+
  
   cy.contains('Book Now').first().click()
 
@@ -37,6 +38,12 @@ it('Validaciones del formulario de reserva', () => {
 
   
   cy.contains('Reserve Now').click()
+
+    // verificar que aparecen los mensajes de error correspondientes
+    // Verificar que no se realizó reserva
+    // sumar Vlidacion de Api, al menos una
+    // sumar Validacion de imagen que corresponda con la de una habitacion
+
 
   
   cy.contains('Reserve Now').click()
