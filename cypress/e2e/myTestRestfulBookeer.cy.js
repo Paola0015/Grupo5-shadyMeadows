@@ -32,24 +32,33 @@ describe('Trabajo Final QA - Shady Meadows', () => {
     // 3.3.2
     it('Enviar el mensaje y validar que se muestra la confirmación', () => {
 
-      cy.visit("https://automationintesting.online/#contact");
+    cy.visit('https://automationintesting.online/#contact');
 
-      // Validar que el formulario existe
-      cy.get("form").should("be.visible");
+    // Interceptar la petición POST
+    cy.intercept('POST', '**/message').as('sendMessage');
 
-      // Completar campos con dátos válidos
-      cy.fixture('dataSuccessfullyForm').then((data) => {
+    // Validar que el formulario existe
+    cy.get('form').should('be.visible');
+
+    // Completar campos
+    cy.fixture('dataSuccessfullyForm').then((data) => {
         cy.successfullyForm(data);
-
     });
-      // Enviar formulario
-      cy.contains('Submit')
-          .should("be.visible")
-          .click();
 
-      cy.contains('Thanks for getting in touch Marcelo Gallardo!')
-          .should('be.visible');
-    
+    // Enviar formulario
+    cy.contains('Submit')
+        .should('be.visible')
+        .click();
+
+    // Validar respuesta del backend
+    cy.wait('@sendMessage')
+      .its('response.statusCode')
+      .should('eq', 200);
+
+    // Validar mensaje de éxito
+    cy.contains('Thanks for getting in touch Marcelo Gallardo!')
+      .should('be.visible');
+
 });
 
 
