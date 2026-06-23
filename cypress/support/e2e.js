@@ -13,5 +13,5 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-// Importo el archivo de comandos personalizados para que estén disponibles en los tests:
+// Import commands.js using ES2015 syntax:
 import './commands'
