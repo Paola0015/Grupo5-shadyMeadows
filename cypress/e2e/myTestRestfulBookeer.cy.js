@@ -1,15 +1,20 @@
 // Maneja excepciones no capturadas en la aplicación para evitar que Cypress falle el test
 Cypress.on('uncaught:exception', (err, runnable) => {
   return false;
+
 });
 
 describe('Trabajo Final QA - Shady Meadows', () => {
   // Navega a la URL principal antes de cada test
   beforeEach(() => {
     cy.visit('/');
-    // Cargar datos de reserva desde fixture
+    cy.fixture('contactFormValues').as('contact');
     cy.fixture('reservationForm').as('reservation');
   });
+    after(() => {
+    cy.reload();
+  });
+
 
   // =========================
   // 3.1 RESERVA EXITOSA COMO USUARIO INVITADO
@@ -60,29 +65,27 @@ describe('Trabajo Final QA - Shady Meadows', () => {
     });
   });
 
-  // Caso de prueba 3.1.3: OK---
+   // Caso de prueba 3.1.3: OK---
   it('Completar el formulario con usuario invitado y validar campos completados', () => {
     // Usar datos de fixture `reservationForm` y comando reutilizable
     cy.get('@reservation').then((r) => {
-      cy.fillReservationForm(r.nombre, r.apellido, r.email, r.telefono);
-    });
-
+      cy.fillReservationForm(r.nombre, r.apellido, r.email, r.telefono)
+    })
     // Tras enviar la reserva, validar que no hay alertas de error en los campos
-    cy.assertValidacionCamposReserva({ checkSuccess: true });
+    cy.assertValidacionCamposReserva({ checkSuccess: true })
     // Fin del primer caso de prueba
-  });
+  })
 
   // Caso de prueba 3.1.4: OK
   it('Confirmar la reserva y validar el mensaje de éxito con usuario invitado', () => {
     // Usar datos de fixture `reservationForm` y comando reutilizable
     cy.get('@reservation').then((r) => {
-      cy.fillReservationForm(r.nombre, r.apellido, r.email, r.telefono);
-    });
-
+      cy.fillReservationForm(r.nombre, r.apellido, r.email, r.telefono)
+    })
     // Verifica que el mensaje de confirmación de reserva sea visible (timeout ampliado)
-    cy.contains('Your booking has been confirmed for the following dates:', { timeout: 10000 })
-      .should('be.visible');
-  });
+    cy.contains('Your booking has been confirmed for the following dates:', { timeout: 15000 }).should('be.visible')
+    // Fin del segundo caso de prueba
+  })
 
   // Caso de prueba 3.1.5: OK
   //ATENCIÓN: Este caso de prueba puede fallar si se intenta reservar las mismas fechas 
@@ -92,60 +95,61 @@ describe('Trabajo Final QA - Shady Meadows', () => {
   it('Intentar repetir las mismas fechas de reserva y validar el mensaje de error', () => {
     // Usar datos de fixture `reservationForm` y comando reutilizable
     cy.get('@reservation').then((r) => {
-      cy.fillReservationForm(r.nombre, r.apellido, r.email, r.telefono);
-    });
-
+      cy.fillReservationForm(r.nombre, r.apellido, r.email, r.telefono)
+    })
+    
     // Verifica que el mensaje de confirmación de reserva sea visible (timeout ampliado)
-    cy.contains('Your booking has been confirmed for the following dates:', { timeout: 10000 })
-      .should('be.visible');
+  
+    cy.contains('Your booking has been confirmed for the following dates:', { timeout: 15000 }).should('be.visible')
 
     // Inicio caso de prueba 3.1.5: cambia de habitación y vuelve a intentar
-    cy.get(':nth-child(1) > .col-lg-4 > .card > .card-body > .btn').click();
-
+    cy.get(':nth-child(1) > .col-lg-4 > .card > .card-body > .btn').click()
     // Usar el comando reutilizable para la segunda reserva y validar el error esperado
-    cy.fillReservationForm('Juan', 'Perez', 'juan.perez@example.com', '09876543210');
+    cy.fillReservationForm('Juan', 'Perez', 'juan.perez@example.com', '09876543210')
+    cy.contains('This page couldn’t load', { timeout: 15000 }).should('be.visible')
+    // Fin del tercer caso de prueba
+  })
 
-    cy.contains('This page couldn’t load', { timeout: 10000 })
-      .should('be.visible');
-  });
+
 
   // Caso de prueba 3.1.6: OK
   it('Intentar reservar sin completar el formulario y validar los mensajes de error', () => {
+       // Colocar antes del click que envía el formulario (intercepta el endpoint real)
+    cy.intercept('POST', '**/api/booking**').as('creaReserva')
+
     // Usar comando reutilizable para abrir el formulario sin rellenar campos
-    cy.openReservationForm();
+    cy.openReservationForm()
 
-    // Colocar antes del click que envía el formulario (intercepta el endpoint real)
-    cy.intercept('POST', '**/api/booking**')
-      .as('creaReserva');
+ 
 
-    cy.get('.btn-primary').click();
+    // Enviar formulario
+    cy.get('.btn-primary').click()
 
     // Esperar la petición (timeout ampliado) y validar respuesta y mensajes en UI
-    cy.wait('@creaReserva', { timeout: 10000 })
-      .its('response')
-      .then((res) => {
-        cy.log('booking response status:', res.statusCode);
+    cy.wait('@creaReserva', { timeout: 15000 }).its('response').then((res) => {
+      cy.log('booking response status:', res.statusCode)
+      // Si el backend devuelve error de validación (p. ej. 400), validar que los mensajes del body se muestran
+      if (res.statusCode >= 400) {
+        expect(res.statusCode).to.be.oneOf([400])
+        cy.log('response body', JSON.stringify(res.body))
+        const errors = res.body && res.body.errors ? res.body.errors : []
+        // Para cada mensaje devuelto por el backend, verificar que esté visible en la UI
+        errors.forEach((msg) => {
+          cy.contains(msg, { timeout: 15000 }).should('be.visible')
+        })
+      } else {
+        expect(res.statusCode).to.be.oneOf([200, 201])
+        cy.contains('Your booking has been confirmed for the following dates:', { timeout: 15000 }).should('be.visible')
+      }
+    })
 
-        // Si el backend devuelve error de validación (p. ej. 400), validar que los mensajes del body se muestran
-        if (res.statusCode >= 400) {
-          expect(res.statusCode).to.be.oneOf([400]);
-          cy.log('response body', JSON.stringify(res.body));
+    // Fin del cuarto caso de prueba
+   })
 
-          const errors = res.body && res.body.errors ? res.body.errors : [];
+  // =========================
+  // juani
+  // =========================
 
-          // Para cada mensaje devuelto por el backend, verificar que esté visible en la UI
-          errors.forEach((msg) => {
-            cy.contains(msg, { timeout: 10000 }).should('be.visible');
-          });
-        } else {
-          expect(res.statusCode).to.be.oneOf([200, 201]);
-          cy.contains('Your booking has been confirmed for the following dates:', { timeout: 10000 })
-            .should('be.visible');
-        }
-      });
-  });
-
-  describe('Formulario de contacto - Juan', () => {
     // 3.3 Formulario de contacto
 
     // 3.3.1
@@ -178,6 +182,7 @@ describe('Trabajo Final QA - Shady Meadows', () => {
       cy.fixture('dataSuccessfullyForm').then((data) => {
         cy.successfullyForm(data);
       });
+      
        // Enviar formulario
     cy.contains('Submit')
         .should('be.visible')
@@ -194,7 +199,7 @@ describe('Trabajo Final QA - Shady Meadows', () => {
 
 
     });
-  });
+
 
   // =====================================
   // VALIDACIÓN DE IMAGEN DE HABITACIÓN
@@ -227,7 +232,7 @@ describe('Trabajo Final QA - Shady Meadows', () => {
   // FORMULARIO DE CONTACTO
   // =====================================
 
-  describe('Formulario de contacto', () => {
+
 
     it('Enviar formulario de contacto en blanco y validar los mensajes de error que aparecen', () => {
 
@@ -337,4 +342,3 @@ describe('Trabajo Final QA - Shady Meadows', () => {
 
   });
 
-});
