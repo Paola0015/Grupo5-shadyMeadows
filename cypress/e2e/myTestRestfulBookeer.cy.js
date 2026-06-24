@@ -58,8 +58,7 @@ describe('Trabajo Final QA - Shady Meadows', () => {
 
     });
   });
-
-  //Juan Poporat
+  describe('Formulario de contacto - Juan', () => {
    // 3.3 Formulario de contacto
 
     // 3.3.1
@@ -95,8 +94,8 @@ describe('Trabajo Final QA - Shady Meadows', () => {
         cy.successfullyForm(data);
     });
 
-    //fin Juani Poporat
-
+  });
+  });
   it('Completar el formulario con usuario invitado y validar campos completados', () => {
     cy.get('@reservation').then((r) => {
       cy.fillReservationForm(
@@ -342,4 +341,4 @@ describe('Trabajo Final QA - Shady Meadows', () => {
 
   });
 
-});})
+});

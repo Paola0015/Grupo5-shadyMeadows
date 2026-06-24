@@ -108,6 +108,8 @@ Cypress.Commands.add('successfullyForm',(data) =>{
 })
 
 
+
+
 // Comando para abrir el formulario de reserva (selección de fechas y apertura del formulario)
 Cypress.Commands.add('openReservationForm', () => {
 	cy.get('.col-lg-8 > .btn').click()
