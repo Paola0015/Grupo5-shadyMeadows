@@ -29,17 +29,10 @@ Cypress.Commands.add('openReservationForm', () => {
 	cy.get('.col-lg-8 > .btn').click()
 	cy.get(':nth-child(1) > .react-datepicker-wrapper > .react-datepicker__input-container > .form-control').click()
 	cy.get('.react-datepicker__navigation--next').click()
-<<<<<<< Updated upstream
-	cy.get('.react-datepicker__day--015').click() // Modificar 015 si se repite la prueba Caso de prueba 3.1.4 'Confirmar la reserva y validar que el mensaje de éxito con usuario invitado'
-	cy.get(':nth-child(2) > .react-datepicker-wrapper > .react-datepicker__input-container > .form-control').click()
-	cy.get('.react-datepicker__navigation--next').click()
-	cy.get('.react-datepicker__day--020').click() // Modificar 020 si se repite la prueba Caso de prueba 3.1.4 'Confirmar la reserva y validar que el mensaje de éxito con usuario invitado'
-=======
 	cy.get('.react-datepicker__day--010').click() // Modificar 015 si se repite la prueba Caso de prueba 3.1.4 'Confirmar la reserva y validar que el mensaje de éxito con usuario invitado'
 	cy.get(':nth-child(2) > .react-datepicker-wrapper > .react-datepicker__input-container > .form-control').click()
 	cy.get('.react-datepicker__navigation--next').click()
 	cy.get('.react-datepicker__day--012').click() // Modificar 020 si se repite la prueba Caso de prueba 3.1.4 'Confirmar la reserva y validar que el mensaje de éxito con usuario invitado'
->>>>>>> Stashed changes
 	cy.get('.col-8 > .btn').click()
 	cy.get(':nth-child(1) > .card > .card-footer > .btn').should('be.visible').click()
 	cy.url().should('include', '/reservation/')
@@ -51,14 +44,6 @@ Cypress.Commands.add('openReservationForm', () => {
 
 // Comando para abrir + rellenar el formulario de reserva y confirmándola.
 Cypress.Commands.add('fillReservationForm', (nombre, apellido, email, telefono) => {
-<<<<<<< Updated upstream
-	cy.openReservationForm()
-	cy.get('[name="firstname"]').type(nombre)
-	cy.get('[name="lastname"]').type(apellido)
-	cy.get('[name="email"]').type(email)
-	cy.get('[name="phone"]').type(telefono)
-	cy.get('.btn-primary').click()
-=======
 	// Abre el formulario (selección de fechas y apertura del modal/página)
 	cy.openReservationForm()
 	// Escribe el nombre en el campo `firstname`
@@ -106,7 +91,7 @@ Cypress.Commands.add('submitReservation', (alias = 'creaReserva') => {
 //   * busca textos específicos en el body ('must be a well-formed email address', 'size must be between 3 and 18')
 //   * revisa cualquier elemento `.alert` por si el mensaje aparece fuera de una lista
 // - Si no encuentra errores, por defecto verifica que aparezca el mensaje de confirmación
-Cypress.Commands.add('assertReservationValidation', (options = { checkSuccess: true }) => {
+Cypress.Commands.add('assertValidacionCamposReserva', (options = { checkSuccess: true }) => {
 	// Devuelve la cadena para seguir encadenando comandos Cypress
 	return cy.get('body').then(($body) => {
 		// Buscar elementos de lista dentro de alertas
@@ -152,5 +137,4 @@ Cypress.Commands.add('assertReservationValidation', (options = { checkSuccess: t
 			cy.contains('Your booking has been confirmed for the following dates:', { timeout: 10000 }).should('be.visible')
 		}
 	})
->>>>>>> Stashed changes
 })
