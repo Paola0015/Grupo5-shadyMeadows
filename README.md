@@ -31,10 +31,13 @@ Email: [paoandre225@gmail.com](mailto:paoandre225@gmail.com)
 ### Marcos Polzoni
 
 Email: [marcos_polzoni@yahoo.com.ar](mailto:marcos_polzoni@yahoo.com.ar)
+Trello: https://trello.com/b/Xk4sGKK3/tpfinal-shady-meadows-bb
+Drive > Hoja con Set de Pruebas: https://docs.google.com/spreadsheets/d/1qXmTXK_EZU0HHcU2C6V0GoJ5YD40KFHScWTmfYJvA3o/edit?gid=16637989#gid=16637989
+Rama Github: https://github.com/Paola0015/Grupo5-shadyMeadows/tree/marcos
 
 
 ### Florencia Viale
-Email:
+Email: [abflorenciaviale@gmail.com](mailto:abflorenciaviale@gmail.com)
 
 
 ## Herramientas utilizadas
@@ -50,6 +53,10 @@ Email:
 ### Tablero Trello
 
 https://trello.com/invite/b/6a2b2afbae4d77c5a09f62c1/ATTI9a2ff72e5f8fa4c0d03d47c9ecec5fdf95092542/grupo-5-qa-automation
+
+### Segundo Tablero Trello
+
+https://trello.com/b/NqwJerwp/grupo-5-shady-meadows
 
 ### Casos de prueba (Drive)
 
