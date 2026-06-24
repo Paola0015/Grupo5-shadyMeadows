@@ -129,7 +129,7 @@ Cypress.Commands.add('openReservationForm', () => {
 
 
 
-// Comando para abrir + rellenar el formulario de reserva y confirmándola.
+	// Comando para abrir + rellenar el formulario de reserva y confirmándola.
 Cypress.Commands.add('fillReservationForm', (nombre, apellido, email, telefono) => {
 	// Abre el formulario (selección de fechas y apertura del modal/página)
 	cy.openReservationForm()
