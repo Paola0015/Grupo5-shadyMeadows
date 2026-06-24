@@ -5,17 +5,12 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 
 describe('Trabajo Final QA - Shady Meadows', () => {
 
-    beforeEach(() => {
-      cy.visit('https://automationintesting.online/');
-  });
   // Navega a la URL principal antes de cada test
   beforeEach(() => {
     cy.visit('https://automationintesting.online/');
     // Cargar datos de reserva desde fixture
     cy.fixture('reservationForm').as('reservation')
   })
-
-
 
   // Caso de prueba 3.1.3: OK---
   it('Completar el formulario con usuario invitado y validar campos completados', () => {
@@ -44,7 +39,7 @@ describe('Trabajo Final QA - Shady Meadows', () => {
   // varias veces. Si esto ocurre, modificar las fechas seleccionadas en el comando 
   // `openReservationForm` (líneas 29 y 32) a otras fechas futuras para evitar 
   // conflictos con reservas anteriores.
-  it.only('Intentar repetir las mismas fechas de reserva y validar el mensaje de error', () => {
+  it('Intentar repetir las mismas fechas de reserva y validar el mensaje de error', () => {
     // Usar datos de fixture `reservationForm` y comando reutilizable
     cy.get('@reservation').then((r) => {
       cy.fillReservationForm(r.nombre, r.apellido, r.email, r.telefono)
@@ -59,57 +54,6 @@ describe('Trabajo Final QA - Shady Meadows', () => {
     cy.contains('This page couldn’t load', { timeout: 10000 }).should('be.visible')
     // Fin del tercer caso de prueba
   })
-
-    // 3.3.1 
-    it('Formulario de contacto exitoso', () => {
-
-      cy.visit("https://automationintesting.online/#contact");
-
-      // Validar que el formulario existe
-      cy.get("form").should("be.visible");
-
-      // Completar campos con dátos válidos
-      cy.fixture('dataContactForm').then((data) => {
-        cy.completarContactForm(data);
-
-    });
-      // Enviar formulario
-      cy.contains('Submit')
-          .should("be.visible")
-          .click();
-});
-
-    // 3.3.2
-    it('Enviar el mensaje y validar que se muestra la confirmación', () => {
-
-    cy.visit('https://automationintesting.online/#contact');
-
-    // Interceptar la petición POST
-    cy.intercept('POST', '**/message').as('sendMessage');
-
-    // Validar que el formulario existe
-    cy.get('form').should('be.visible');
-
-    // Completar campos
-    cy.fixture('dataSuccessfullyForm').then((data) => {
-        cy.successfullyForm(data);
-    });
-
-    // Enviar formulario
-    cy.contains('Submit')
-        .should('be.visible')
-        .click();
-
-    // Validar respuesta del backend
-    cy.wait('@sendMessage')
-      .its('response.statusCode')
-      .should('eq', 200);
-
-    // Validar mensaje de éxito
-    cy.contains('Thanks for getting in touch Marcelo Gallardo!')
-      .should('be.visible');
-
-});
 
   // Caso de prueba 3.1.6: OK
   it('Intentar reservar sin completar el formulario y validar los mensajes de error', () => {
@@ -164,22 +108,15 @@ describe('Trabajo Final QA - Shady Meadows', () => {
 
       //Paola
 
-
       cy.visit('https://automationintesting.online/')
-
-
 
       cy.contains('Book Now').first().click()
 
-
       cy.contains('Check Availability & Book Your Stay')
-
 
       cy.get('a[href*="reservation"]').first().click()
 
-
       cy.contains('Book This Room')
-
 
       cy.contains('Reserve Now').click()
 
@@ -188,14 +125,11 @@ describe('Trabajo Final QA - Shady Meadows', () => {
       // sumar Vlidacion de Api, al menos una
       // sumar Validacion de imagen que corresponda con la de una habitacion
 
-
-
       cy.contains('Reserve Now').click()
 
       cy.contains('Firstname should not be blank')
       cy.contains('Lastname should not be blank')
       cy.contains('must not be empty')
-
 
       // verificar que aparecen los mensajes de error correspondientes
       cy.contains('Firstname should not be blank').should('be.visible')
@@ -210,21 +144,58 @@ describe('Trabajo Final QA - Shady Meadows', () => {
       // LISTO ..... Verificar que no se realizó reserva
       // sumar Vlidacion de Api, al menos una
       // sumar Validacion de imagen que corresponda con la de una habitacion
-
     })
-
 
     // 3.3 Formulario de contacto
 
+    // 3.3.1
     it('Formulario de contacto exitoso', () => {
 
-      cy.visit('https://automationintesting.online/')
+      cy.visit("https://automationintesting.online/#contact");
 
-      // TODO:
-      // Completar formulario contacto con datos validos
-      // Enviar mensaje y validar que se muestra la informacion
-      // sumar que se envie correctamente el mail
+      // Validar que el formulario existe
+      cy.get("form").should("be.visible");
 
-    })
+      // Completar campos con dátos válidos
+      cy.fixture('dataContactForm').then((data) => {
+        cy.completarContactForm(data);
 
-  })
+    });
+      // Enviar formulario
+      cy.contains('Submit')
+          .should("be.visible")
+          .click();
+  });
+
+    // 3.3.2
+    it('Enviar el mensaje y validar que se muestra la confirmación', () => {
+
+    cy.visit('https://automationintesting.online/#contact');
+
+    // Interceptar la petición POST
+    cy.intercept('POST', '**/message').as('sendMessage');
+
+    // Validar que el formulario existe
+    cy.get('form').should('be.visible');
+
+    // Completar campos
+    cy.fixture('dataSuccessfullyForm').then((data) => {
+        cy.successfullyForm(data);
+    });
+
+    // Enviar formulario
+    cy.contains('Submit')
+        .should('be.visible')
+        .click();
+
+    // Validar respuesta del backend
+    cy.wait('@sendMessage')
+      .its('response.statusCode')
+      .should('eq', 200);
+
+    // Validar mensaje de éxito
+    cy.contains('Thanks for getting in touch Marcelo Gallardo!')
+      .should('be.visible');
+  });
+
+})
