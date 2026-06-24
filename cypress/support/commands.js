@@ -29,16 +29,17 @@ Cypress.Commands.add('openReservationForm', () => {
 	cy.get('.col-lg-8 > .btn').click()
 	cy.get(':nth-child(1) > .react-datepicker-wrapper > .react-datepicker__input-container > .form-control').click()
 	cy.get('.react-datepicker__navigation--next').click()
-	cy.get('.react-datepicker__day--010').click() // Modificar 015 si se repite la prueba Caso de prueba 3.1.4 'Confirmar la reserva y validar que el mensaje de éxito con usuario invitado'
+	cy.get('.react-datepicker__day--018').click() // Modificar 015 si se repite la prueba Caso de prueba 3.1.4 'Confirmar la reserva y validar que el mensaje de éxito con usuario invitado'
 	cy.get(':nth-child(2) > .react-datepicker-wrapper > .react-datepicker__input-container > .form-control').click()
 	cy.get('.react-datepicker__navigation--next').click()
-	cy.get('.react-datepicker__day--012').click() // Modificar 020 si se repite la prueba Caso de prueba 3.1.4 'Confirmar la reserva y validar que el mensaje de éxito con usuario invitado'
+	cy.get('.react-datepicker__day--019').click() // Modificar 020 si se repite la prueba Caso de prueba 3.1.4 'Confirmar la reserva y validar que el mensaje de éxito con usuario invitado'
 	cy.get('.col-8 > .btn').click()
 	cy.get(':nth-child(1) > .card > .card-footer > .btn').should('be.visible').click()
 	cy.url().should('include', '/reservation/')
 	cy.get('#doReservation').should('be.visible').click()
 	cy.get('form').should('be.visible')
 })
+
 
 
 
