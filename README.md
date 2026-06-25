@@ -23,6 +23,9 @@ Email: [xwtejerina@gmail.com](mailto:xwtejerina@gmail.com)
 ### Juan Ignacio Poropat
 
 Email: [poropatjuanignacio@gmail.com](mailto:poropatjuanignacio@gmail.com)
+Trello: https://trello.com/b/NqwJerwp/grupo-5-shady-meadows
+Drive > Hoja con Set de Pruebas: https://docs.google.com/spreadsheets/d/1qXmTXK_EZU0HHcU2C6V0GoJ5YD40KFHScWTmfYJvA3o/edit?gid=1612908028#gid=1612908028
+Rama Github: https://github.com/Paola0015/Grupo5-shadyMeadows/tree/juan
 
 ### Paola Venturini
 

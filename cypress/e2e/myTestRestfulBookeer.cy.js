@@ -145,9 +145,43 @@ describe('Trabajo Final QA - Shady Meadows', () => {
       });
   });
 
-  describe('Formulario de contacto - Juan', () => {
-    // 3.3 Formulario de contacto
+  
+  });
 
+  // =====================================
+  // VALIDACIÓN DE IMAGEN DE HABITACIÓN
+  // =====================================
+
+  // 3.2.5
+  it('Validar que la imagen de la habitación de reserva se corresponda con la misma', () => {
+
+    cy.get('[href="/#rooms"]').click();
+
+    cy.contains('Our Rooms')
+      .should('be.visible');
+
+    cy.get('a[href*="reservation/2"]').click();
+
+    cy.contains('Double Room')
+      .should('be.visible');
+
+    cy.contains('TV').should('be.visible');
+    cy.contains('Radio').should('be.visible');
+    cy.contains('Safe').should('be.visible');
+
+    cy.url().should('include', '/reservation/2');
+
+    cy.get('img')
+      .should('have.attr', 'src')
+      .and('include', '/images/room2.jpg');
+  });
+
+  // =====================================
+  // FORMULARIO DE CONTACTO
+  // =====================================
+
+describe('Formulario de contacto', () => {
+    
     // 3.3.1
     it('Formulario de contacto exitoso', () => {
 
@@ -191,44 +225,9 @@ describe('Trabajo Final QA - Shady Meadows', () => {
     // Validar mensaje de éxito
     cy.contains('Thanks for getting in touch Marcelo Gallardo!')
       .should('be.visible');
-
-
     });
-  });
-
-  // =====================================
-  // VALIDACIÓN DE IMAGEN DE HABITACIÓN
-  // =====================================
-
-  it('Validar que la imagen de la habitación de reserva se corresponda con la misma', () => {
-
-    cy.get('[href="/#rooms"]').click();
-
-    cy.contains('Our Rooms')
-      .should('be.visible');
-
-    cy.get('a[href*="reservation/2"]').click();
-
-    cy.contains('Double Room')
-      .should('be.visible');
-
-    cy.contains('TV').should('be.visible');
-    cy.contains('Radio').should('be.visible');
-    cy.contains('Safe').should('be.visible');
-
-    cy.url().should('include', '/reservation/2');
-
-    cy.get('img')
-      .should('have.attr', 'src')
-      .and('include', '/images/room2.jpg');
-  });
-
-  // =====================================
-  // FORMULARIO DE CONTACTO
-  // =====================================
-
-  describe('Formulario de contacto', () => {
-
+});
+    // 3.3.3
     it('Enviar formulario de contacto en blanco y validar los mensajes de error que aparecen', () => {
 
       cy.get('[href="/#contact"]').click();
@@ -248,6 +247,7 @@ describe('Trabajo Final QA - Shady Meadows', () => {
       cy.contains('Message must be between 20 and 2000 characters.').should('be.visible');
     });
 
+    // 3.3.5
     it('Enviar formulario de contacto con email inválido', () => {
 
       cy.fixture('contactFormValues').then((values) => {
@@ -309,6 +309,7 @@ describe('Trabajo Final QA - Shady Meadows', () => {
       });
     });
 
+    // 3.3.6
     it('Enviar formulario de contacto con teléfono inválido', () => {
 
       cy.fixture('contactFormValues').then((values) => {
@@ -334,8 +335,6 @@ describe('Trabajo Final QA - Shady Meadows', () => {
           .should('be.visible');
       });
     });
-
-  });
 
     it('Lista de habitaciones mediante la API', () => {
     cy.request({
@@ -390,4 +389,3 @@ describe('Trabajo Final QA - Shady Meadows', () => {
     });
   });
 
-});
