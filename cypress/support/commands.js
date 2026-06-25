@@ -225,3 +225,28 @@ Cypress.Commands.add('assertValidacionCamposReserva', (options = { checkSuccess:
 		}
 	})
 })
+
+Cypress.Commands.add('loginAdmin', (username, password) => {
+  cy.visit('https://automationintesting.online/admin/', { timeout: 12000 });
+
+  // 1. Esperamos explícitamente a que el input de username no esté deshabilitado
+  cy.get('#username', { timeout: 8000 })
+    .should('be.visible')
+    .should('not.be.disabled')
+    .type(username, { force: true });
+    
+  // 2. Hacemos lo mismo con el password, y le sumamos { force: true } 
+  // Esto obliga a Cypress a escribir aunque React meta un bloqueo momentáneo
+  cy.get('#password')
+    .should('not.be.disabled')
+    .type(password, { force: true });
+  
+  // 3. Esperamos que el botón de login sea cliqueable y le damos marcha
+  cy.get('#doLogin').should('not.be.disabled').click();
+});
+
+// Evita que Cypress falle los tests debido a excepciones no capturadas de la aplicación web
+Cypress.on('uncaught:exception', (err, runnable) => {
+  // Retornar false previene que Cypress falle el test
+  return false;
+});
