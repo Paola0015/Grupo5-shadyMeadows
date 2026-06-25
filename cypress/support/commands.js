@@ -11,6 +11,72 @@
 //
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
+Cypress.Commands.add("botonDisponibilidadDeHabitacionesHabilitado", (roomId) => {
+  cy.get(`a.btn.btn-primary[href*="/reservation/${roomId}"]`)
+    .should("be.visible")
+    .and("contain", "Book now")
+    .and("have.class", "btn")
+    .and("have.class", "btn-primary");
+});
+Cypress.Commands.add("seleccionarRangoCalendario", (inicio, fin) => {
+
+  cy.contains('button.rbc-button-link', inicio)
+    .trigger('mousedown', { which: 1, force: true });
+
+  cy.get('body')
+    .trigger('mousemove', { force: true });
+
+  cy.contains('button.rbc-button-link', fin)
+    .trigger('mouseup', { force: true });
+
+
+  cy.get('.rbc-event-content[title="Selected"]')
+    .should('be.visible');
+
+  cy.get('.rbc-event-content[title="Selected"]')
+    .should('have.length.at.least', 2);
+
+  cy.get('.rbc-event-content[title="Selected"]')
+    .each(($el) => {
+      cy.wrap($el)
+        .should('be.visible')
+        .and('contain.text', 'Selected');
+    });
+
+});
+Cypress.Commands.add("hacerClickEnReservar", () => {
+
+  cy.get("#doReservation")
+    .should("be.visible")
+    .click();
+
+  cy.get(".room-firstname")
+    .should("be.visible");
+
+})
+Cypress.Commands.add("validarFormularioReservaVisible", () => {
+
+  cy.get("form")
+    .should("be.visible");
+
+  cy.get(".room-booking-form")
+    .should("be.visible");
+
+  cy.get(".room-firstname")
+    .should("be.visible");
+
+  cy.get(".room-lastname")
+    .should("be.visible");
+
+  cy.get(".room-email")
+    .should("be.visible");
+
+  cy.get(".room-phone")
+    .should("be.visible");
+
+});
+
+
 //
 //
 // -- This is a child command --
@@ -42,6 +108,8 @@ Cypress.Commands.add('successfullyForm',(data) =>{
 })
 
 
+
+
 // Comando para abrir el formulario de reserva (selección de fechas y apertura del formulario)
 Cypress.Commands.add('openReservationForm', () => {
 	cy.get('.col-lg-8 > .btn').click()
@@ -61,7 +129,7 @@ Cypress.Commands.add('openReservationForm', () => {
 
 
 
-// Comando para abrir + rellenar el formulario de reserva y confirmándola.
+	// Comando para abrir + rellenar el formulario de reserva y confirmándola.
 Cypress.Commands.add('fillReservationForm', (nombre, apellido, email, telefono) => {
 	// Abre el formulario (selección de fechas y apertura del modal/página)
 	cy.openReservationForm()
@@ -157,28 +225,3 @@ Cypress.Commands.add('assertValidacionCamposReserva', (options = { checkSuccess:
 		}
 	})
 })
-
-Cypress.Commands.add('loginAdmin', (username, password) => {
-  cy.visit('https://automationintesting.online/admin/', { timeout: 12000 });
-
-  // 1. Esperamos explícitamente a que el input de username no esté deshabilitado
-  cy.get('#username', { timeout: 8000 })
-    .should('be.visible')
-    .should('not.be.disabled')
-    .type(username, { force: true });
-    
-  // 2. Hacemos lo mismo con el password, y le sumamos { force: true } 
-  // Esto obliga a Cypress a escribir aunque React meta un bloqueo momentáneo
-  cy.get('#password')
-    .should('not.be.disabled')
-    .type(password, { force: true });
-  
-  // 3. Esperamos que el botón de login sea cliqueable y le damos marcha
-  cy.get('#doLogin').should('not.be.disabled').click();
-});
-
-// Evita que Cypress falle los tests debido a excepciones no capturadas de la aplicación web
-Cypress.on('uncaught:exception', (err, runnable) => {
-  // Retornar false previene que Cypress falle el test
-  return false;
-});
